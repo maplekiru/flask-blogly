@@ -22,9 +22,9 @@ class User(db.Model):
                     nullable=False)               
     last_name = db.Column(db.String(50),
                     nullable=False)
-    image_url = db.Column(db.String(), nullable=False, default='https://images.unsplash.com/photo-1548247416-ec66f4900b2e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=963&q=80')
+    image_url = db.Column(db.String(), nullable=False, default='')
     
-    #ask about creating uniqueness for full profile?
+    #ask about creating uniqueness for full profile? (Add constraint)
 
     def __repr__(self):
         """Show info about user."""

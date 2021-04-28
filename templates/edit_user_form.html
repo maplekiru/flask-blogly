@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Add a User{% endblock %}
+{% block title %}Edit User{% endblock %}
 
 {% block content %}
-<h1>Create a user</h1>
+<h1>Edit a user</h1>
 <form method="POST">
 <label for="first_name">First Name</label>
 <input 
@@ -11,6 +11,7 @@
     name="first_name" 
     maxlength="50" 
     placeholder="Enter a first name"
+    value='{{user.first_name}}'
     required
 >
 <br/>
@@ -20,6 +21,7 @@
     name="last_name" 
     maxlength="50" 
     placeholder="Enter a last name"
+    value='{{user.last_name}}'
     required
 >
 <br/>
@@ -29,8 +31,10 @@
     type="url" 
     name="image_url"
     placeholder="Provide an image of this user"
+    value='{{user.image_url}}'
 >
 <br/>
-<button type="submit">ADD</button>
+<a href='/users/{{user.id}}' class='btn btn-outline-primary' role='button'> Cancel </a>
+<button type="submit" class="btn btn-success">Save</button>
 </form>
 {% endblock %}

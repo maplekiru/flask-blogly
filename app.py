@@ -57,4 +57,28 @@ def add_user():
     db.session.add(user)
     db.session.commit()
 
-    return redirect(f"/{user.id}")
+    return redirect(f"/users/{user.id}")
+
+@app.route('/users/<int:userid>')
+def user_profile(userid):
+    """
+    GET /users/[user-id]
+    Show information about the given user.
+
+    Have a button to get to their edit page, and to delete the user.
+    """
+
+    user = User.query.get_or_404(userid)
+    return render_template("user_profile.html", user=user)
+
+@app.route('/users/<int:userid>/edit')
+def edit_profile(userid):
+    """
+    GET /users/[user-id]/edit
+    Show the edit page for a user.
+
+    Have a cancel button that returns to the detail page for a user, and a save button that updates the user.
+    """
+
+    user = User.query.get_or_404(userid)
+    return render_template("edit_user_form.html", user=user)
