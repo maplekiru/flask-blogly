@@ -9,7 +9,9 @@
 <div>  
     <h1>{{user.first_name}} {{user.last_name}}</h1>
     <a href='/users/{{user.id}}/edit' class='btn btn-primary' role='button'> Edit </a>
-    <a href='/users/{{user.id}}/delete' class='btn btn-danger' role='button'> Delete </a>
+    <form action='/users/{{user.id}}/delete' method="POST">
+    <button type="submit" class='btn btn-danger'> Delete </a>
+    </form>
 </div>
 
 {% endblock %}

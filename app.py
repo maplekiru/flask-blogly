@@ -16,8 +16,9 @@ def home():
     """ 
     GET /
     Redirect to list of users. 
-    (We’ll fix this in a later step).
+    (We'll fix this in a later step).
     """
+    
     return redirect('/users')
 
 @app.route('/users')
@@ -57,7 +58,7 @@ def add_user():
     db.session.add(user)
     db.session.commit()
 
-    return redirect(f"/users/{user.id}")
+    return redirect(f'/users/{user.id}')
 
 @app.route('/users/<int:userid>')
 def user_profile(userid):
@@ -82,3 +83,35 @@ def edit_profile(userid):
 
     user = User.query.get_or_404(userid)
     return render_template("edit_user_form.html", user=user)
+
+@app.route('/users/<int:userid>/edit', methods=["POST"])
+def update_user_profile(userid):
+    """
+    POST /users/[user-id]/edit
+    Process the edit form, returning the user to the /users page.
+    """
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    image_url = request.form['image_url']
+    image_url = image_url if image_url else ''
+
+    user = User.query.get(userid)
+    user.first_name = first_name
+    user.last_name = last_name
+    user.image_url = image_url
+   
+    db.session.commit()
+
+    return redirect("/users")
+
+@app.route('/users/<int:userid>/delete', methods=["POST"])
+def delete_user_profile(userid):
+    """
+    POST /users/[user-id]/delete
+    Delete the user.
+    """
+    user = User.query.get(userid)
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect("/users")
