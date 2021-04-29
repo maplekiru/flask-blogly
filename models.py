@@ -17,6 +17,9 @@ class User(db.Model):
 
     __tablename__ = "users"
 
+    __table_args__ = (
+        db.UniqueConstraint('first_name', 'last_name', 'image_url', name='unique_user'),)
+
     id = db.Column(db.Integer,
                    primary_key=True,
                    autoincrement=True)
@@ -42,6 +45,8 @@ class Post(db.Model):
     """Post."""
 
     __tablename__ = "posts"
+    __table_args__ = (
+        db.UniqueConstraint('title', 'content', 'user_id', name='unique_post'),)
 
     id = db.Column(
         db.Integer,

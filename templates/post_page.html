@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+<div>
+	<h1>{{post.title}}</h1>
+	<p>{{post.content}}</p>
+	<p><i>By {{user.first_name}} {{user.last_name}}</i></p>
+	<form action='/posts/{{post.id}}/delete' method="POST">
+		<a href='/users/{{post.user_id}}' class='btn btn-outline-primary' role='button'>
+			Cancel
+		</a>
+		<a href='/posts/{{post.id}}/edit' class='btn btn-primary' role='button'>
+			Edit
+		</a>
+
+		<button type="submit" class='btn btn-danger'>
+			Delete
+		</button>
+	</form>
+</div>
+
+{% endblock %}
