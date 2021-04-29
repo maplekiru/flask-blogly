@@ -5,35 +5,40 @@
 {% block content %}
 <h1>Edit a user</h1>
 <form method="POST">
+    <div>
 <label for="first_name">First Name</label>
 <input 
-    type="text" 
+    type="text"
+    id="first_name" 
     name="first_name" 
     maxlength="50" 
     placeholder="Enter a first name"
-    value='{{user.first_name}}'
+    value="{{user.first_name}}"
     required
 >
-<br/>
+</div>
+<div>
 <label for="last_name">Last Name</label>
 <input 
-    type="text" 
+    type="text"
+    id="last_name"  
     name="last_name" 
     maxlength="50" 
     placeholder="Enter a last name"
-    value='{{user.last_name}}'
+    value="{{user.last_name}}"
     required
 >
-<br/>
-
+</div>
+<div>
 <label for="image_url">Image URL</label>
 <input 
-    type="url" 
+    type="url"
+    id="image_url"  
     name="image_url"
     placeholder="Provide an image of this user"
-    value='{{user.image_url}}'
+    value="{{user.image_url}}"
 >
-<br/>
+</div>
 <a href='/users/{{user.id}}' class='btn btn-outline-primary' role='button'> Cancel </a>
 <button type="submit" class="btn btn-success">Save</button>
 </form>

@@ -31,8 +31,3 @@ class User(db.Model):
 
         u = self
         return f"<User {u.id} {u.first_name} {u.last_name}>"
-
-    @classmethod
-    def get_all_users(cls):
-        return cls.query.all()
-        

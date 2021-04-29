@@ -24,7 +24,10 @@ class BloglyTestCase(TestCase):
 
         User.query.delete()
 
-        user = User(first_name="John", last_name="Doe", image_url='http://cdn.akc.org/content/article-body-image/golden_puppy_dog_pictures.jpg')
+        user = User(
+            first_name="John", 
+            last_name="Doe", 
+            image_url='http://cdn.akc.org/content/article-body-image/golden_puppy_dog_pictures.jpg')
         db.session.add(user)
         db.session.commit()
 
@@ -37,7 +40,7 @@ class BloglyTestCase(TestCase):
 
     def test_users(self):
         with app.test_client() as client:
-            resp = client.get("/")
+            resp = client.get("/users")
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
@@ -47,19 +50,25 @@ class BloglyTestCase(TestCase):
     def test_add_user(self):
         with app.test_client() as client:
             d = {"first_name": "Jane", "last_name": "Doe", "image_url": ''}
-            resp = client.post("/", data=d, follow_redirects=True)
+            resp = client.post("/users/new", data=d, follow_redirects=True)
             html = resp.get_data(as_text=True)
 
             self.assertEqual(resp.status_code, 200)
             self.assertIn("Jane", html)
 
-    # def test_user_profile(self):
-    #     with app.test_client() as client:
-    #         d = {"name": "TestPet2", "species": "cat", "hunger": 20}
-    #         resp = client.post("/", data=d, follow_redirects=True)
-    #         html = resp.get_data(as_text=True)
+    def test_user_profile(self):
+        with app.test_client() as client:
+            resp = client.get(f"/users/{self.user_id}")
+            html = resp.get_data(as_text=True)
 
-    #         self.assertEqual(resp.status_code, 200)
-    #         self.assertIn("<h1>TestPet2</h1>", html)
+            self.assertEqual(resp.status_code, 200)
+            self.assertIn("John", html)
+            self.assertIn("Edit", html)
 
-    # def test_delete_user_profile(self):
+    def test_delete_user_profile(self):
+        with app.test_client() as client:
+            resp = client.post(f'/users/{self.user_id}/delete', follow_redirects=True)
+            html = resp.get_data(as_text=True)
+
+            self.assertEqual(resp.status_code, 200)
+            self.assertNotIn("John", html)
