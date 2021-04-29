@@ -64,7 +64,8 @@ def user_profile(user_id):
     """
 
     user = User.query.get_or_404(user_id)
-    return render_template("user_profile.html", user=user)
+    posts = user.posts
+    return render_template("user_profile.html", user=user, posts=posts)
 
 @app.route('/users/<int:user_id>/edit')
 def edit_profile(user_id):
@@ -106,3 +107,26 @@ def delete_user_profile(user_id):
     db.session.commit()
 
     return redirect("/users")
+
+@app.route('/users/<int:user_id>/posts/new')
+def new_post_form(user_id):
+    """
+    Show form to add a post for that user.
+    """
+    user = User.query.get(user_id)
+    return render_template('add_post_form.html',user=user)
+
+
+# POST /users/[user-id]/posts/new
+# Handle add form; add post and redirect to the user detail page.
+# GET /posts/[post-id]
+# Show a post.
+
+# Show buttons to edit and delete the post.
+
+# GET /posts/[post-id]/edit
+# Show form to edit a post, and to cancel (back to user page).
+# POST /posts/[post-id]/edit
+# Handle editing of a post. Redirect back to the post view.
+# POST /posts/[post-id]/delete
+# Delete the post.
