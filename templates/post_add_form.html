@@ -22,6 +22,16 @@
 			name="content" 
 			required>
 	</div>
+
+	{% for tag in tags %}
+	<div>
+		<label for={{tag.name}}>{{tag.name}}</label>
+		<input type="checkbox" value="{{tag.id}}" name="tag_list" id={{tag.name}}>
+	</div>
+	{% endfor %}
+
+	
+
     <a href='/users/{{user.id}}' class='btn btn-outline-primary' role='button'> Cancel </a>
 	<button type="submit" class="btn btn-success">Add</button>
 </form>
